@@ -1,0 +1,37 @@
+---
+title: "Research project 1"
+author: "Manuel Estevez R"
+date: "09/06/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load and Explore/process the data
+
+```{r}
+actividades<-read.csv("data_activity/activity.csv")
+dim(actividades)
+names(actividades)
+head(actividades)
+str(actividades)
+sum(is.na(actividades$steps))/dim(actividades)[[1]]
+library(lubridate)
+actividades$date<-ymd(actividades$date)
+length(unique(actividades$date))
+```
+
+## Histogram of the total number of steps taken each day
+1. Calculate the total number of steps taken per day<br>
+2. Make a histogram of the total number of steps taken each day<br>
+3. Calculate and report the mean and median total number of steps taken per day<br>
+```{r}
+pasospordias<-aggregate(actividades$steps,list(actividades$date), FUN=sum)
+colnames(pasospordias)<-c("Date","Steps")
+pasospordias
+```
+Histogram
+```{r}
+hist(pasospordias$Steps, main = "Total number of steps taken per day", xlab = "Total steps taken per day", col = "green", ylim = c(0,20), breaks = seq(0,25000, by=2500))
