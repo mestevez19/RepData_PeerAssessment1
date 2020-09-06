@@ -35,3 +35,28 @@ pasospordias
 Histogram
 ```{r}
 hist(pasospordias$Steps, main = "Total number of steps taken per day", xlab = "Total steps taken per day", col = "green", ylim = c(0,20), breaks = seq(0,25000, by=2500))
+
+```
+
+# Mean and Median
+```{r}
+media<-mean(pasospordias$Steps, na.rm=TRUE)
+media
+mediana<-median(pasospordias$Steps, na.rm=TRUE)
+mediana
+```
+
+## Average daily activity pattern 
+1. Make a time series plot (i.e type= “𝚕”) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)<br>
+2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?<br>
+```{r}
+
+promedioactividad<-aggregate(actividades$steps, by = list(actividades$interval), FUN=mean, na.rm=TRUE )
+names(promedioactividad) <- c("Interval", "Mean")
+plot(promedioactividad$Interval, promedioactividad$Mean, type = "l", col="black", lwd = 2, xlab="Interval", ylab="Average number of steps", main="1. Average number of steps per intervals")
+
+intervalmax<-promedioactividad[which.max(promedioactividad$Mean), ]$Interval
+intervalmax
+
+      
+
