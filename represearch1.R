@@ -1,0 +1,9 @@
+actividades<-read.csv("data_activity/activity.csv")
+dim(actividades)
+names(actividades)
+head(actividades)
+str(actividades)
+sum(is.na(actividades$steps))/dim(actividades)[[1]]
+library(lubridate)
+actividades$date<-ymd(actividades$date)
+length(unique(actividades$date))
